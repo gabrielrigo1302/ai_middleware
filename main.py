@@ -1,12 +1,11 @@
 from fastapi import FastAPI
-from src.endpoints.controllers.SummaryController import router as summary_router
+from src.routes import routers
 
 app = FastAPI(title="AI Middleware", version="1.0.0")
 
-app.include_router(summary_router, prefix="/summary", tags=["Summary"])
+for router in routers:
+    app.include_router(router)
 
-@app.get("/status", tags=["Status"])
-async def health():
-    return {"status": "ok"}
-
-
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}

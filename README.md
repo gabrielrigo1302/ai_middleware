@@ -12,7 +12,7 @@
 
 # Rodando o projeto
 
-- rodar o projeto: uv run main.py ou fastapi dev main.py
+- rodar o projeto: uvicorn main:app --reload ou fastapi dev main.py
 - buildar o projeto: uv build;
 - corrigir o projeto: uv run ruff check --fix;
 - formatar o projeto: uv run ruff format;
