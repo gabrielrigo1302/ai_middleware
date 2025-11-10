@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import APIRouter, status
 from .classes.text_routes_classes import TextInput
 from ..controllers import text_controller
@@ -6,4 +7,13 @@ router = APIRouter(prefix="/text", tags=["text"])
 
 @router.post("/summarize", status_code=status.HTTP_200_OK)
 async def get_summarized_text(body: TextInput) -> str:
+    var = 1
     return await text_controller.get_summarized_text_controller(body.text)
+
+@router.post("/embedding", status_code=status.HTTP_200_OK)
+async def get_text_embedding(body: TextInput) -> List[float]:
+    return await text_controller.get_text_embedding_controller([body.text])
+
+@router.post("/enterprise-rag/add-document", status_code=status.HTTP_200_OK)
+async def post_rag_text_add_document(doc_id: str, body: TextInput) -> str:
+    return await text_controller.post_rag_text_add_document(doc_id, body.text)

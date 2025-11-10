@@ -5,8 +5,6 @@ from settings import settings
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-logger.info("Requisição chegou na camada do provider Mistral")
-
 class LogLevel(str, Enum):
     info = "info"
     warning = "warning"

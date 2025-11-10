@@ -7,5 +7,9 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "development"
     MISTRAL_KEY: str
     DEBUG: bool = False
+    NEO4J_URI: str
+    NEO4J_USER: str
+    NEO4J_PASSWORD: str
+
 
 settings = Settings()

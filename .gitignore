@@ -1,3 +1,9 @@
-uv.lock
-.env
 __pycache__/
+**/__pycache__/
+Neo4j-db.txt
+Neo4j-instance.txt
+.env
+
+# Ignore plain 'env' file and env/ directory (some setups use either)
+env
+env/
