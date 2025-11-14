@@ -20,9 +20,13 @@ async def mistral_text_to_text_provider(prompt: str) -> str:
                     "content": prompt,
                 }
             ],
-        )
+        ).choices[0].message.content
 
-        return chat_response.choices[0].message.content
+        if chat_response is str:
+            return chat_response
+        else:
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Resposta inválida do provedor Mistral")
+
     except Exception:
         log_debug(LogLevel.error, "Mistral Provider", "Nenhuma chave de API Mistral configurada.")
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Erro ao comunicar com o provedor Mistral")
@@ -32,11 +36,13 @@ async def mistral_text_embedding_provider(content: List[str]) -> List[float]:
         embedding_response = client.embeddings.create(
             model="mistral-embed",
             inputs=content,
-        )
-       
-        # log_debug(LogLevel.info, "Mistral Provider", embedding_response.data[0].embedding)
+        ).data[0].embedding
 
-        return embedding_response.data[0].embedding
+        if embedding_response is List[float]:
+            return embedding_response
+        else:
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Resposta inválida do provedor Mistral")
+        
     except Exception:
         log_debug(LogLevel.error, "Mistral Provider", "Erro ao comunicar com o provedor Mistral.")
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=Exception)

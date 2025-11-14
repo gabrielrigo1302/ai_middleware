@@ -12,4 +12,4 @@ class Settings(BaseSettings):
     NEO4J_PASSWORD: str
 
 
-settings = Settings()
+settings = Settings() # type: ignore
