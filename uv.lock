@@ -16,6 +16,7 @@ dependencies = [
     { name = "pydantic-settings" },
     { name = "ruff" },
     { name = "sentence-transformers" },
+    { name = "uvicorn" },
 ]
 
 [package.metadata]
@@ -29,6 +30,7 @@ requires-dist = [
     { name = "pydantic-settings", specifier = ">=2.11.0" },
     { name = "ruff", specifier = ">=0.14.4" },
     { name = "sentence-transformers", specifier = ">=5.1.2" },
+    { name = "uvicorn", specifier = ">=0.38.0" },
 ]
 
 [[package]]

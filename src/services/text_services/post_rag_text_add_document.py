@@ -3,7 +3,7 @@ from typing import Any, Dict, List
 from fastapi import HTTPException, status
 from neo4j import Driver
 from src.utils.logger_debug import LogLevel, log_debug
-from src.db import graph_store
+from src.db.graph import graph_store
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.embeddings import HuggingFaceEmbeddings
 
