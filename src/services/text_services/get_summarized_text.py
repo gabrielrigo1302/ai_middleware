@@ -1,4 +1,7 @@
 from src.orchestrator import orchestrator
 
-async def get_summarized_text(text: str) -> str:
-    return await orchestrator.text_to_text_orchestration(text)
+
+async def get_summarized_text(prompt: str) -> str:
+    system_prompt = "Você é um assistente que resume textos de forma clara e concisa."
+
+    return await orchestrator.text_to_text_orchestration(system_prompt, prompt)

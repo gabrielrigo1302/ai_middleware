@@ -1,7 +1,6 @@
 from neo4j import GraphDatabase
 from settings import settings
 
-driver = GraphDatabase.driver( # type: ignore
-    settings.NEO4J_URI,
-    auth=(settings.NEO4J_USER, settings.NEO4J_PASSWORD)
+driver = GraphDatabase.driver(  # type: ignore
+    settings.NEO4J_URI, auth=(settings.NEO4J_USER, settings.NEO4J_PASSWORD)
 )

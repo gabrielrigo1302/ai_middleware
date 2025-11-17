@@ -1,24 +1,20 @@
 import logging
-from enum import Enum
 from settings import settings
+from src.types.enums.log_enums import LogLevelEnum
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-class LogLevel(str, Enum):
-    info = "info"
-    warning = "warning"
-    error = "error"
 
-def log_debug(logLevel: LogLevel, location: str, message: str):
+def log_debug(logLevel: LogLevelEnum, location: str, message: str):
     if settings.DEBUG is False:
         return
-    
-    elif logLevel == LogLevel.info:
+
+    elif logLevel == LogLevelEnum.info:
         logger.info("Requisição acessou: " + location + ". " + message)
 
-    elif logLevel == LogLevel.warning:
+    elif logLevel == LogLevelEnum.warning:
         logger.warning("Atenção: " + location + ". " + message)
 
-    elif logLevel == LogLevel.error:
+    elif logLevel == LogLevelEnum.error:
         logger.error("Erro ocorrido na : " + location + ". " + message)
