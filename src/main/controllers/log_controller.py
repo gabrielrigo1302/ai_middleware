@@ -1,8 +1,8 @@
 from typing import List
 from sqlalchemy.orm import Session
 from src.types.classes.log_classes import Log, LogInput, LogOutput
-from src.services.log_services.get_logs import get_logs as fetch_logs
-from src.services.log_services.post_log import create_log
+from src.main.services.log_services.get_logs import get_logs as fetch_logs
+from src.main.services.log_services.post_log import create_log
 
 
 async def get_logs(db: Session) -> List[Log]:

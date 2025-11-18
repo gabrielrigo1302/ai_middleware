@@ -11,6 +11,6 @@
             "--reload",
         ],
         "jinja": false,
-        "envFile": "${workspaceFolder}/.env"
+        "envFile": "${workspaceFolder}/environment/.env"
     }]
 }

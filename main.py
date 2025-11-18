@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from src.routes import routers
+from src.gateway.routes import routers
 
 app = FastAPI(title="AI Middleware", version="1.0.0")
 

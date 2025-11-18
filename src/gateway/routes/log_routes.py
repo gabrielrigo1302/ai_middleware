@@ -3,7 +3,7 @@ from fastapi import APIRouter, status, Depends
 from sqlalchemy.orm import Session
 from src.types.classes.log_classes import LogOutput, LogInput
 from src.db.sql.engine import get_db
-from src.controllers import log_controller
+from src.main.controllers import log_controller
 
 router = APIRouter(prefix="/log", tags=["log"])
 

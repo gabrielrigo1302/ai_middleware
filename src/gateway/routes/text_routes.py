@@ -1,7 +1,7 @@
 from typing import Any, Dict, List
 from fastapi import APIRouter, status
-from ..types.classes.text_classes import TextInput
-from ..controllers import text_controller
+from src.types.classes.text_classes import TextInput
+from src.main.controllers import text_controller
 
 router = APIRouter(prefix="/text", tags=["text"])
 

@@ -4,7 +4,7 @@ from fastapi import HTTPException, status
 from neo4j import Driver
 from src.types.enums.log_enums import LogLevelEnum
 from src.utils.logger_debug import log_debug
-from src.db.graph import graph_store
+from src.db.vector import graph_store
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.embeddings import HuggingFaceEmbeddings
 

@@ -1,5 +1,5 @@
 from typing import List, Dict, Any
-from src.db.graph import graph_store
+from src.db.vector import graph_store
 from langchain_community.embeddings import HuggingFaceEmbeddings
 
 
