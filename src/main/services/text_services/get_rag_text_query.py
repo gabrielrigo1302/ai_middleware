@@ -3,7 +3,7 @@ from src.db.vector import graph_store
 from langchain_community.embeddings import HuggingFaceEmbeddings
 
 
-async def get_rag_text_query(query: str) -> Dict[str, Any]:
+async def get_rag_text_query(query: str, top_k: int = 1) -> Dict[str, Any]:
     rag = graph_store.driver
     embedding_model = HuggingFaceEmbeddings(
         model_name="sentence-transformers/all-MiniLM-L6-v2"
@@ -26,7 +26,7 @@ async def get_rag_text_query(query: str) -> Dict[str, Any]:
                         c.id AS chunk_id,
                         similarity
             """,
-                {"query_embedding": query_embedding, "top_k": 3},
+                {"query_embedding": query_embedding, "top_k": top_k},
             )
 
             relevant_chunks = [
@@ -46,12 +46,20 @@ async def get_rag_text_query(query: str) -> Dict[str, Any]:
                 return {"resposta": not_found, "pergunta": query}
 
             # Construir contexto
-            context: List[str] = [
-                f"Documento {chunk['chunk_id']} (similaridade: {chunk['similarity']:.3f}):\n{chunk['content']}"
-                for chunk in relevant_chunks
+            context: List[dict[str, str]] = [
+                {
+                    "content": str(chunk["content"]),
+                    "chunk_id": str(chunk["chunk_id"]),
+                    "similarity": str(chunk["similarity"]),
+                } for chunk in relevant_chunks
             ]
 
-            response: Dict[str, Any] = {"resposta": context, "pergunta": query}
+            response: Dict[str, Any] = { 
+                "content": str(context[0]["content"]),
+                "chunk_id": str(context[0]["chunk_id"]),
+                "similarity": str(context[0]["similarity"]),
+                "pergunta": query
+            }
 
             return response
 
