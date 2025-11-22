@@ -27,6 +27,9 @@ pip-log.txt
 .mypy_cache/
 .cache/
 .coverage
+**/*.pyc
+**/*cpython-*.pyc
+*cpython-313.pyc
 htmlcov/
 
 # Virtual environments
