@@ -3,7 +3,7 @@ from src.db.vector import graph_store
 from langchain_community.embeddings import HuggingFaceEmbeddings
 
 
-async def get_rag_text_query(query: str, top_k: int = 1) -> Dict[str, Any]:
+async def get_rag_text_query_service(query: str, top_k: int = 1) -> Dict[str, Any]:
     rag = graph_store.driver
     embedding_model = HuggingFaceEmbeddings(
         model_name="sentence-transformers/all-MiniLM-L6-v2"
@@ -51,14 +51,15 @@ async def get_rag_text_query(query: str, top_k: int = 1) -> Dict[str, Any]:
                     "content": str(chunk["content"]),
                     "chunk_id": str(chunk["chunk_id"]),
                     "similarity": str(chunk["similarity"]),
-                } for chunk in relevant_chunks
+                }
+                for chunk in relevant_chunks
             ]
 
-            response: Dict[str, Any] = { 
+            response: Dict[str, Any] = {
                 "content": str(context[0]["content"]),
                 "chunk_id": str(context[0]["chunk_id"]),
                 "similarity": str(context[0]["similarity"]),
-                "pergunta": query
+                "pergunta": query,
             }
 
             return response

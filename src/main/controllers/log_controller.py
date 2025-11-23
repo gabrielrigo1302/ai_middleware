@@ -1,15 +1,15 @@
 from typing import List
 from sqlalchemy.orm import Session
 from src.types.classes.log_classes import Log, LogInput, LogOutput
-from src.main.services.log_services.get_logs import get_logs as fetch_logs
-from src.main.services.log_services.post_log import create_log
+from src.main.services.log_services.get_logs import get_all_logs_service
+from src.main.services.log_services.post_log import post_log_service
 
 
-async def get_logs(db: Session) -> List[Log]:
-    return await fetch_logs(db)
+async def get_all_logs_controller(db: Session) -> List[Log]:
+    return await get_all_logs_service(db)
 
 
-async def post_log(log: LogInput, db: Session) -> LogOutput:
+async def post_log_controller(log: LogInput, db: Session) -> LogOutput:
     new_log = Log(
         user_id=log.user_id,
         tenant_id=log.tenant_id,
@@ -25,4 +25,4 @@ async def post_log(log: LogInput, db: Session) -> LogOutput:
         prompt=log.prompt,
     )
 
-    return await create_log(new_log, db)
+    return await post_log_service(new_log, db)

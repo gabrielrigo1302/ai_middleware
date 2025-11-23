@@ -9,7 +9,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.embeddings import HuggingFaceEmbeddings
 
 
-async def post_rag_text_add_document() -> str:
+async def post_rag_text_add_document_service() -> str:
     rag_driver = graph_store.driver
 
     try:

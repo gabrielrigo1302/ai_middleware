@@ -10,10 +10,10 @@ router = APIRouter(prefix="/log", tags=["log"])
 
 @router.get("/all", status_code=status.HTTP_200_OK, response_model=List[LogOutput])
 async def get_all_logs(db: Session = Depends(get_db)):
-    logs = await log_controller.get_logs(db)
+    logs = await log_controller.get_all_logs_controller(db)
     return logs
 
 
 @router.post("", status_code=status.HTTP_201_CREATED, response_model=LogOutput)
 async def post_log(log: LogInput, db: Session = Depends(get_db)):
-    return await log_controller.post_log(log, db)
+    return await log_controller.post_log_controller(log, db)

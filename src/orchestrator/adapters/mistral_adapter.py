@@ -1,5 +1,5 @@
 from typing import List
-from ..providers import mistral_provider
+from src.orchestrator.providers import mistral_provider
 
 
 async def mistral_text_to_text_adapter(system_prompt: str, prompt: str) -> str:

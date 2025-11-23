@@ -1,5 +1,5 @@
 from typing import List
-from .adapters import mistral_adapter
+from src.orchestrator.adapters import mistral_adapter
 
 
 async def text_to_text_orchestration(system_prompt: str, prompt: str) -> str:
