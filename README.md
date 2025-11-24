@@ -17,6 +17,7 @@
 - buildar o projeto: uv build;
 - corrigir o projeto: uv run ruff check --fix;
 - formatar o projeto: uv run ruff format;
+- builder docker: docker build -t ai_middleware .;
 
 # Arquitetura
 
