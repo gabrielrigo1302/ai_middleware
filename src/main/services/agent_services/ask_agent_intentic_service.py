@@ -1,7 +1,7 @@
-from src.types.classes.agent_classes import AgentIntenticInput
+from src.types.classes import AgentIntenticInputClass
 
 
-async def ask_agent_intentic_service(input: AgentIntenticInput):
+async def ask_agent_intentic_service(input: AgentIntenticInputClass):
     # Entender a Intenção do prompt
     # Tomada de decisão baseada na intenção
     # Executar ações apropriadas

@@ -1,11 +1,11 @@
 from pydantic import BaseModel
-from src.types.enums.agent_enums import AgentIntenticEnum
+from src.types.enums import AgentIntenticEnum
 
 
-class AgentIntenticInput(BaseModel):
+class AgentIntenticInputClass(BaseModel):
     prompt: str
     intent: AgentIntenticEnum
 
 
-class AgentInput(BaseModel):
+class AgentInputClass(BaseModel):
     prompt: str

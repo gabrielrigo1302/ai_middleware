@@ -1,10 +1,10 @@
 from typing import List, Dict, Any
-from src.db.vector import graph_store
+from src.db.vector import driver
 from langchain_community.embeddings import HuggingFaceEmbeddings
 
 
 async def get_rag_text_query_service(query: str, top_k: int = 1) -> Dict[str, Any]:
-    rag = graph_store.driver
+    rag = driver
     embedding_model = HuggingFaceEmbeddings(
         model_name="sentence-transformers/all-MiniLM-L6-v2"
     )

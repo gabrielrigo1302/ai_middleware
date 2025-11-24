@@ -2,15 +2,15 @@ import os
 from typing import Any, Dict, List
 from fastapi import HTTPException, status
 from neo4j import Driver
-from src.types.enums.log_enums import LogLevelEnum
-from src.utils.logger_debug import log_debug
-from src.db.vector import graph_store
+from src.types.enums import LogLevelEnum
+from src.utils import log_debug
+from src.db.vector import driver
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.embeddings import HuggingFaceEmbeddings
 
 
 async def post_rag_text_add_document_service() -> str:
-    rag_driver = graph_store.driver
+    rag_driver = driver
 
     try:
         ### Criar SCHEMA

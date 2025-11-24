@@ -1,16 +1,18 @@
 from typing import List
 from sqlalchemy.orm import Session
-from src.types.classes.log_classes import Log, LogInput, LogOutput
-from src.main.services.log_services.get_logs import get_all_logs_service
-from src.main.services.log_services.post_log import post_log_service
+from src.types.classes.log_classes import LogClass, LogInputClass, LogOutputClass
+from src.main.services.log_services import (
+    get_all_logs_service, 
+    post_log_service
+)
 
 
-async def get_all_logs_controller(db: Session) -> List[Log]:
+async def get_all_logs_controller(db: Session) -> List[LogClass]:
     return await get_all_logs_service(db)
 
 
-async def post_log_controller(log: LogInput, db: Session) -> LogOutput:
-    new_log = Log(
+async def post_log_controller(log: LogInputClass, db: Session) -> LogOutputClass:
+    new_log = LogClass(
         user_id=log.user_id,
         tenant_id=log.tenant_id,
         date=log.date,

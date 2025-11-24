@@ -1,5 +1,5 @@
 from pydantic import BaseModel
 
 
-class TextInput(BaseModel):
+class TextInputClass(BaseModel):
     text: str

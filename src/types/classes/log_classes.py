@@ -1,9 +1,9 @@
 from pydantic import BaseModel
 from sqlalchemy import Column, Integer, String
-from src.db.sql.engine import Base
+from src.db.sql import Base
 
 
-class Log(Base):
+class LogClass(Base):
     __tablename__ = "logs"
 
     id = Column(Integer, primary_key=True)
@@ -25,7 +25,7 @@ class Log(Base):
     prompt = Column(String)
 
 
-class LogInput(BaseModel):
+class LogInputClass(BaseModel):
     user_id: int
     tenant_id: str
     date: str
@@ -40,7 +40,7 @@ class LogInput(BaseModel):
     prompt: str
 
 
-class LogOutput(LogInput):
+class LogOutputClass(LogInputClass):
     id: int
 
     class Config:

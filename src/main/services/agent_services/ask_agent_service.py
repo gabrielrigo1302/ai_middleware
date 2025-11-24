@@ -1,16 +1,13 @@
-from src.orchestrator import orchestrator
-from src.types.classes.agent_classes import AgentInput
-from src.types.classes.agent_classes import AgentIntenticEnum
-from src.main.services.log_services.post_log import post_log_service
-from src.main.services.text_services.get_rag_text_query import (
-    get_rag_text_query_service,
-)
+from src.orchestrator import text_to_text_orchestration
+from src.types.classes import AgentInputClass, LogClass
+from src.types.enums import AgentIntenticEnum
+from src.main.services.log_services import post_log_service
+from src.main.services.text_services import get_rag_text_query_service
 from sqlalchemy.orm import Session
 
-from src.types.classes.log_classes import Log
 
 
-async def ask_agent_service(input: AgentInput, db: Session):
+async def ask_agent_service(input: AgentInputClass, db: Session):
     # Entender a Intenção do prompt
     intentResponse = await analyze_agent_intent(input)
 
@@ -28,7 +25,7 @@ async def ask_agent_service(input: AgentInput, db: Session):
     return reasons
 
 
-async def analyze_agent_intent(input: AgentInput) -> str:
+async def analyze_agent_intent(input: AgentInputClass) -> str:
     system_prompt = f"""
         Você é um assistente que analisa a intenção de prompts de usuários e
         classifica-os em uma seguintes categorias: 
@@ -38,7 +35,7 @@ async def analyze_agent_intent(input: AgentInput) -> str:
             - {AgentIntenticEnum.own_application.value}: caso pergunte sobre a própria aplicação, projeto e similares.;  
         retorne uma das intenções classificadas.
     """
-    response = await orchestrator.text_to_text_orchestration(
+    response = await text_to_text_orchestration(
         system_prompt, input.prompt
     )
 
@@ -46,13 +43,13 @@ async def analyze_agent_intent(input: AgentInput) -> str:
 
 
 async def reasoner_agent_intent(
-    intent: AgentIntenticEnum, input: AgentInput, db: Session
+    intent: AgentIntenticEnum, input: AgentInputClass, db: Session
 ) -> str:
     response = ""
     match intent:
         case AgentIntenticEnum.generic_ask:
             system_prompt = "Você é um assistente inteligente que responde perguntas de usuários de forma clara e objetiva."
-            response = await orchestrator.text_to_text_orchestration(
+            response = await text_to_text_orchestration(
                 system_prompt, input.prompt
             )
         case AgentIntenticEnum.create_log:
@@ -70,7 +67,7 @@ async def reasoner_agent_intent(
                 }
                 """
 
-            log_dict = await orchestrator.text_to_text_orchestration(
+            log_dict = await text_to_text_orchestration(
                 system_prompt, input.prompt
             )
 
@@ -82,7 +79,7 @@ async def reasoner_agent_intent(
                 except Exception:
                     log_dict = {}
 
-            new_log = Log(
+            new_log = LogClass(
                 user_id=1,
                 tenant_id=log_dict.get("tenant_id", 1),
                 date="2025-11-18T12:00:00Z",
@@ -101,7 +98,7 @@ async def reasoner_agent_intent(
             response = "Log criado com sucesso."
         case AgentIntenticEnum.send_email:
             system_prompt = "Você é um assistente inteligente que monta mensagens de email e apenas mensagens de email. Você não responde nada além da criação de emails"
-            response = await orchestrator.text_to_text_orchestration(
+            response = await text_to_text_orchestration(
                 system_prompt, input.prompt
             )
         case AgentIntenticEnum.own_application:
@@ -115,7 +112,7 @@ async def reasoner_agent_intent(
                 - ID do documento de onde veio as informações: {response["chunk_id"]}; 
                 - Similaridade da pesquisa vetorial: {response["similarity"]}."""
 
-            response = await orchestrator.text_to_text_orchestration(
+            response = await text_to_text_orchestration(
                 system_prompt, input.prompt
             )
         case _:

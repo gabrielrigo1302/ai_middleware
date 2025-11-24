@@ -1,8 +1,8 @@
 from typing import List
 from fastapi import HTTPException, status
 from settings import settings
-from src.types.enums.log_enums import LogLevelEnum
-from src.utils.logger_debug import log_debug
+from src.types.enums import LogLevelEnum
+from src.utils import log_debug
 from mistralai import Mistral
 
 if settings.MISTRAL_KEY:

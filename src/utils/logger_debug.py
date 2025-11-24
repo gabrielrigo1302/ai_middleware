@@ -1,6 +1,6 @@
 import logging
 from settings import settings
-from src.types.enums.log_enums import LogLevelEnum
+from src.types.enums import LogLevelEnum
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
