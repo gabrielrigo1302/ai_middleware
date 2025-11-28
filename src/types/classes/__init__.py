@@ -1,16 +1,7 @@
 from typing import Any, Callable, List
-from src.types.classes.agent_classes import (
-    AgentInputClass,
-    AgentIntenticInputClass
-)
-from src.types.classes.log_classes import (
-    LogClass,
-    LogInputClass,
-    LogOutputClass
-)
-from src.types.classes.text_classes import (
-    TextInputClass
-)
+from src.types.classes.agent_classes import AgentInputClass, AgentIntenticInputClass
+from src.types.classes.log_classes import LogClass, LogInputClass, LogOutputClass
+from src.types.classes.text_classes import TextInputClass
 
 __all__ = [
     "AgentInputClass",
@@ -27,5 +18,5 @@ agent_classes: List[Callable[..., Any]] = [
     LogClass,
     LogInputClass,
     LogOutputClass,
-    TextInputClass
+    TextInputClass,
 ]

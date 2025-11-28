@@ -30,13 +30,15 @@ async def post_rag_text_add_document_service() -> str:
 
         return "Documentos adicionados com sucesso à base de grafos."
 
-    except Exception:
+    except Exception as e:
         log_debug(
             LogLevelEnum.error,
-            "Mistral Provider",
-            "Erro ao comunicar com o provedor Mistral.",
+            "post_rag_text_add_document_service",
+            f"Erro ao comunicar com o provedor Mistral: {e}",
         )
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=Exception)
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT, detail=str(e)
+        )
 
     finally:
         rag_driver.close()

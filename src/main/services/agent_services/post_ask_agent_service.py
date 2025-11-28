@@ -6,8 +6,7 @@ from src.main.services.text_services import get_rag_text_query_service
 from sqlalchemy.orm import Session
 
 
-
-async def ask_agent_service(input: AgentInputClass, db: Session):
+async def post_ask_agent_service(input: AgentInputClass, db: Session):
     # Entender a Intenção do prompt
     intentResponse = await analyze_agent_intent(input)
 
@@ -35,9 +34,9 @@ async def analyze_agent_intent(input: AgentInputClass) -> str:
             - {AgentIntenticEnum.own_application.value}: caso pergunte sobre a própria aplicação, projeto e similares.;  
         retorne uma das intenções classificadas.
     """
-    response = await text_to_text_orchestration(
-        system_prompt, input.prompt
-    )
+    response = await text_to_text_orchestration(system_prompt, input.prompt)
+
+    print("response === ", response)
 
     return response
 
@@ -49,9 +48,7 @@ async def reasoner_agent_intent(
     match intent:
         case AgentIntenticEnum.generic_ask:
             system_prompt = "Você é um assistente inteligente que responde perguntas de usuários de forma clara e objetiva."
-            response = await text_to_text_orchestration(
-                system_prompt, input.prompt
-            )
+            response = await text_to_text_orchestration(system_prompt, input.prompt)
         case AgentIntenticEnum.create_log:
             system_prompt = """
                 Você é um assistente inteligente que cria um objeto para registro de log. 
@@ -67,9 +64,7 @@ async def reasoner_agent_intent(
                 }
                 """
 
-            log_dict = await text_to_text_orchestration(
-                system_prompt, input.prompt
-            )
+            log_dict = await text_to_text_orchestration(system_prompt, input.prompt)
 
             if isinstance(log_dict, str):
                 import ast
@@ -98,9 +93,7 @@ async def reasoner_agent_intent(
             response = "Log criado com sucesso."
         case AgentIntenticEnum.send_email:
             system_prompt = "Você é um assistente inteligente que monta mensagens de email e apenas mensagens de email. Você não responde nada além da criação de emails"
-            response = await text_to_text_orchestration(
-                system_prompt, input.prompt
-            )
+            response = await text_to_text_orchestration(system_prompt, input.prompt)
         case AgentIntenticEnum.own_application:
             response = await get_rag_text_query_service(input.prompt)
 
@@ -112,9 +105,7 @@ async def reasoner_agent_intent(
                 - ID do documento de onde veio as informações: {response["chunk_id"]}; 
                 - Similaridade da pesquisa vetorial: {response["similarity"]}."""
 
-            response = await text_to_text_orchestration(
-                system_prompt, input.prompt
-            )
+            response = await text_to_text_orchestration(system_prompt, input.prompt)
         case _:
             response = "Intenção não reconhecida."
 
